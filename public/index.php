@@ -52,10 +52,12 @@ $router->get('/games', 'GameController@index');
 $router->get('/games/new', 'GameController@showCreate');
 $router->post('/games', 'GameController@create');
 $router->get('/games/{slug}', 'GameController@show');
+$router->post('/games/{slug}/watch', 'GameController@watch');
 
 // Authors
 $router->get('/author/{id}', 'AuthorController@show');
 $router->get('/author/{id}/games', 'AuthorController@games');
+$router->post('/author/{id}/follow', 'AuthorController@follow');
 
 // Auth pages
 $router->get('/auth/login', 'AuthController@showLogin');
@@ -63,14 +65,24 @@ $router->get('/auth/register', 'AuthController@showRegister');
 $router->post('/auth/login', 'AuthController@login');
 $router->post('/auth/register', 'AuthController@register');
 $router->post('/auth/logout', 'AuthController@logout');
+$router->get('/avatars/{id}', 'AvatarController@show');
 
 // Account
 $router->get('/account', 'AccountController@dashboard');
+$router->get('/account/profile', 'AccountController@profile');
+$router->get('/notifications', 'AccountController@notifications');
+$router->post('/notifications/{id}/read', 'AccountController@markNotificationRead');
 $router->get('/cart', 'CartController@index');
 $router->post('/cart/add', 'CartController@add');
 $router->post('/cart/checkout', 'CartController@checkout');
 $router->get('/collections', 'CollectionController@index');
 $router->get('/forums', 'ForumController@index');
+$router->get('/forums/new', 'ForumController@showCreate');
+$router->post('/forums', 'ForumController@create');
+$router->get('/forums/{id}/topics/new', 'ForumController@showCreateTopic');
+$router->post('/forums/{id}/topics', 'ForumController@createTopic');
+$router->get('/forums/{forumId}/topics/{topicId}', 'ForumController@showTopic');
+$router->post('/forums/{forumId}/topics/{topicId}/posts', 'ForumController@createPost');
 $router->get('/forums/{id}', 'ForumController@show');
 $router->get('/jams', 'JamController@index');
 $router->get('/jams/{slug}', 'JamController@show');
@@ -82,8 +94,10 @@ $router->get('/orders', 'OrderController@index');
 
 $router->get('/admin', 'AdminController@dashboard');
 $router->get('/admin/games', 'AdminController@games');
+$router->post('/admin/games/{id}/remove', 'AdminController@removeGame');
 $router->get('/admin/reports', 'AdminController@reports');
 $router->get('/admin/users', 'AdminController@users');
+$router->post('/admin/users/{id}/roles', 'AdminController@updateUserRoles');
 
 // =============================================================================
 // DISPATCH
